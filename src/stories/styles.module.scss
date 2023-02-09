@@ -1,23 +1,25 @@
-.node {
-  display: flex;
-  align-items: center;
-  padding: 12px 8px;
-  box-sizing: border-box;
-  height: 60px;
-  border-radius: 5px;
-  width: 100%;
-  background-color: white;
-  user-select: none;
-  cursor: pointer;
+.tree{
+  .node {
+    display: flex;
+    align-items: center;
+    padding: 12px 8px;
+    box-sizing: border-box;
+    height: 60px;
+    border-radius: 5px;
+    flex: 1;
+    background-color: white;
+    user-select: none;
+    cursor: pointer;
 
-  &:hover {
-    background-color: #DDDDDD;
+    &:hover {
+      background-color: #DDDDDD;
+    }
   }
-}
 
-.folderWrapper {
   .folder {
-
+    .children {
+      overflow-y: hidden;
+      transition: height 0.5s;
+    }
   }
 }
-

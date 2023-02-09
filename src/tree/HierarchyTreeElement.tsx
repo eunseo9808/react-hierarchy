@@ -1,6 +1,6 @@
 import React, { HTMLAttributes, ReactNode, useContext } from "react";
 import styles from "./styles.module.scss";
-import { HierarchyContext } from "./HierarchyContext";
+import { HierarchyContext } from "../context/HierarchyContext";
 import cx from "classnames";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {

@@ -24,7 +24,7 @@
     "./dist",
     "./yarn",
     "**/*.stories.tsx",
-    "src/stories",
+    "src/tree",
     "**/*.spec.ts"
   ]
 }

@@ -9,7 +9,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { HierarchyContext } from "./HierarchyContext";
+import { HierarchyContext } from "../context/HierarchyContext";
 import styles from "./styles.module.scss";
 import { HierarchyTreeElement } from "./HierarchyTreeElement";
 import cx from "classnames";

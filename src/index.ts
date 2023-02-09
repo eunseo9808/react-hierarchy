@@ -1,3 +1,4 @@
-import { Button } from "./stories/Button";
+import HierarchyTree from "./tree";
+import Hierarchy from "./hierarchy";
 
-export { Button };
+export { Hierarchy, HierarchyTree };

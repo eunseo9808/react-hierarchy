@@ -1,5 +1,5 @@
 import React, { HTMLAttributes, ReactNode } from "react";
-import { HierarchyContextProvider } from "./HierarchyContext";
+import { HierarchyContextProvider } from "../context/HierarchyContext";
 import HierarchyTreeFolder from "./HierarchyTreeFolder";
 import HierarchyTreeElement from "./HierarchyTreeElement";
 import styles from "./styles.module.scss";

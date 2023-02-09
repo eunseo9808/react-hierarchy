@@ -1,9 +1,9 @@
 import { ComponentStory, ComponentMeta, storiesOf } from "@storybook/react";
 import React from "react";
 
-import HierarchyTree from "./HierarchyTree";
+import HierarchyTree from "../tree/HierarchyTree";
 
-storiesOf("Hierarchy", module).add("Tree", () => {
+storiesOf("HierarchyTree", module).add("Tree", () => {
   return (
     <HierarchyTree>
       <HierarchyTree.Folder>

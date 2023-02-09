@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, ReactNode } from "react";
 
 type HierarchyContextType = {
   defaultIsFold: boolean;

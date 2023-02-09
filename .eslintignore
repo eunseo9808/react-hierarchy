@@ -1,0 +1,6 @@
+.storybook
+'*.d.ts'
+node_modules
+build
+dist
+**/env/*.js

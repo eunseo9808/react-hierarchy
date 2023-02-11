@@ -4,6 +4,8 @@ import { nodeResolve } from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import postcss from "rollup-plugin-postcss";
+import clear from "rollup-plugin-clear";
+import { terser } from "rollup-plugin-terser";
 
 const extensions = ["js", "jsx", "ts", "tsx", "mjs"];
 import pkg from "./package.json" assert { type: "json" };
@@ -13,25 +15,31 @@ const config = [
     input: "./src/index.ts",
     output: [
       {
-        dir: "./dist",
+        file: pkg.main,
         format: "cjs",
-        preserveModules: true,
-        preserveModulesRoot: "src",
+        exports: "auto",
+        sourcemap: true,
       },
       {
         file: pkg.module,
-        format: "es",
+        format: "esm",
+        exports: "auto",
+        sourcemap: true,
       },
       {
         name: pkg.name,
         file: pkg.browser,
         format: "umd",
+        exports: "auto",
+        sourcemap: true,
       },
     ],
     plugins: [
+      clear({ targets: ["dist"] }),
       nodeResolve({ extensions }),
       typescript({
         tsconfig: "./tsconfig.json",
+        sourceMap: true,
       }),
       babel({
         exclude: ["node_modules/**"],
@@ -39,6 +47,7 @@ const config = [
         include: ["src/**/*"],
       }),
       commonjs(),
+      terser(),
       peerDepsExternal(),
       postcss({
         extract: false,

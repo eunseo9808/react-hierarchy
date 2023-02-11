@@ -63,8 +63,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:047da5038e376f98137ba51b28b486baf52debfcaf9b2db3ce89044349e2c04e4d4e11c50f674f0ec722ff160cfd073123dd068595a5af638f74e68222d5864b#npm:18.2.0"],\
             ["rollup", "npm:3.14.0"],\
+            ["rollup-plugin-clear", "npm:2.0.7"],\
             ["rollup-plugin-peer-deps-external", "virtual:047da5038e376f98137ba51b28b486baf52debfcaf9b2db3ce89044349e2c04e4d4e11c50f674f0ec722ff160cfd073123dd068595a5af638f74e68222d5864b#npm:2.2.4"],\
             ["rollup-plugin-postcss", "virtual:047da5038e376f98137ba51b28b486baf52debfcaf9b2db3ce89044349e2c04e4d4e11c50f674f0ec722ff160cfd073123dd068595a5af638f74e68222d5864b#npm:4.0.2"],\
+            ["rollup-plugin-terser", "virtual:047da5038e376f98137ba51b28b486baf52debfcaf9b2db3ce89044349e2c04e4d4e11c50f674f0ec722ff160cfd073123dd068595a5af638f74e68222d5864b#npm:7.0.2"],\
             ["sass", "npm:1.58.0"],\
             ["sass-loader", "virtual:047da5038e376f98137ba51b28b486baf52debfcaf9b2db3ce89044349e2c04e4d4e11c50f674f0ec722ff160cfd073123dd068595a5af638f74e68222d5864b#npm:13.2.0"],\
             ["style-inject", "npm:0.3.0"],\
@@ -18495,8 +18497,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:047da5038e376f98137ba51b28b486baf52debfcaf9b2db3ce89044349e2c04e4d4e11c50f674f0ec722ff160cfd073123dd068595a5af638f74e68222d5864b#npm:18.2.0"],\
             ["rollup", "npm:3.14.0"],\
+            ["rollup-plugin-clear", "npm:2.0.7"],\
             ["rollup-plugin-peer-deps-external", "virtual:047da5038e376f98137ba51b28b486baf52debfcaf9b2db3ce89044349e2c04e4d4e11c50f674f0ec722ff160cfd073123dd068595a5af638f74e68222d5864b#npm:2.2.4"],\
             ["rollup-plugin-postcss", "virtual:047da5038e376f98137ba51b28b486baf52debfcaf9b2db3ce89044349e2c04e4d4e11c50f674f0ec722ff160cfd073123dd068595a5af638f74e68222d5864b#npm:4.0.2"],\
+            ["rollup-plugin-terser", "virtual:047da5038e376f98137ba51b28b486baf52debfcaf9b2db3ce89044349e2c04e4d4e11c50f674f0ec722ff160cfd073123dd068595a5af638f74e68222d5864b#npm:7.0.2"],\
             ["sass", "npm:1.58.0"],\
             ["sass-loader", "virtual:047da5038e376f98137ba51b28b486baf52debfcaf9b2db3ce89044349e2c04e4d4e11c50f674f0ec722ff160cfd073123dd068595a5af638f74e68222d5864b#npm:13.2.0"],\
             ["style-inject", "npm:0.3.0"],\
@@ -19062,6 +19066,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["rollup-plugin-clear", [\
+        ["npm:2.0.7", {\
+          "packageLocation": "./.yarn/cache/rollup-plugin-clear-npm-2.0.7-8ea22f93e0-64cc14e6ff.zip/node_modules/rollup-plugin-clear/",\
+          "packageDependencies": [\
+            ["rollup-plugin-clear", "npm:2.0.7"],\
+            ["rimraf", "npm:2.7.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["rollup-plugin-peer-deps-external", [\
         ["npm:2.2.4", {\
           "packageLocation": "./.yarn/cache/rollup-plugin-peer-deps-external-npm-2.2.4-907ae6e3f2-597bc7631f.zip/node_modules/rollup-plugin-peer-deps-external/",\
@@ -19115,6 +19129,32 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packagePeers": [\
             "@types/postcss",\
             "postcss"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["rollup-plugin-terser", [\
+        ["npm:7.0.2", {\
+          "packageLocation": "./.yarn/cache/rollup-plugin-terser-npm-7.0.2-3f55469f5a-af84bb7a7a.zip/node_modules/rollup-plugin-terser/",\
+          "packageDependencies": [\
+            ["rollup-plugin-terser", "npm:7.0.2"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:047da5038e376f98137ba51b28b486baf52debfcaf9b2db3ce89044349e2c04e4d4e11c50f674f0ec722ff160cfd073123dd068595a5af638f74e68222d5864b#npm:7.0.2", {\
+          "packageLocation": "./.yarn/__virtual__/rollup-plugin-terser-virtual-474a9066a7/0/cache/rollup-plugin-terser-npm-7.0.2-3f55469f5a-af84bb7a7a.zip/node_modules/rollup-plugin-terser/",\
+          "packageDependencies": [\
+            ["rollup-plugin-terser", "virtual:047da5038e376f98137ba51b28b486baf52debfcaf9b2db3ce89044349e2c04e4d4e11c50f674f0ec722ff160cfd073123dd068595a5af638f74e68222d5864b#npm:7.0.2"],\
+            ["@babel/code-frame", "npm:7.18.6"],\
+            ["@types/rollup", null],\
+            ["jest-worker", "npm:26.6.2"],\
+            ["rollup", "npm:3.14.0"],\
+            ["serialize-javascript", "npm:4.0.0"],\
+            ["terser", "npm:5.16.3"]\
+          ],\
+          "packagePeers": [\
+            "@types/rollup",\
+            "rollup"\
           ],\
           "linkType": "HARD"\
         }]\

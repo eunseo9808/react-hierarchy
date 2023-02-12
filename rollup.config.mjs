@@ -1,4 +1,3 @@
-import babel from "@rollup/plugin-babel";
 import commonjs from "@rollup/plugin-commonjs";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
@@ -6,6 +5,7 @@ import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import postcss from "rollup-plugin-postcss";
 import clear from "rollup-plugin-clear";
 import { terser } from "rollup-plugin-terser";
+
 
 const extensions = ["js", "jsx", "ts", "tsx", "mjs"];
 import pkg from "./package.json" assert { type: "json" };
@@ -40,11 +40,6 @@ const config = [
       typescript({
         tsconfig: "./tsconfig.json",
         sourceMap: true,
-      }),
-      babel({
-        exclude: ["node_modules/**"],
-        extensions,
-        include: ["src/**/*"],
       }),
       commonjs(),
       terser(),

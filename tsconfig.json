@@ -25,6 +25,7 @@
     "./yarn",
     "**/*.stories.tsx",
     "src/tree",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "node_modules"
   ]
 }

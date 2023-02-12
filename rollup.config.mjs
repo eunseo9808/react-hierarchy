@@ -5,9 +5,10 @@ import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import postcss from "rollup-plugin-postcss";
 import clear from "rollup-plugin-clear";
 import { terser } from "rollup-plugin-terser";
+import svgr from '@svgr/rollup'
 
 
-const extensions = ["js", "jsx", "ts", "tsx", "mjs"];
+const extensions = ["js", "jsx", "ts", "tsx", "mjs", "svg"];
 import pkg from "./package.json" assert { type: "json" };
 
 const config = [
@@ -52,6 +53,11 @@ const config = [
         sourceMap: false,
         use: ["sass"],
       }),
+      svgr({
+        svgoConfig: {
+          plugins: []
+        }
+      })
     ],
   },
 ];

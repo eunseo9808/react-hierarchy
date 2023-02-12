@@ -1,5 +1,9 @@
 .tree{
+  position: relative;
+  width: 100%;
+
   .node {
+    position: absolute;
     display: flex;
     align-items: center;
     padding: 12px 8px;
@@ -10,6 +14,11 @@
     background-color: white;
     user-select: none;
     cursor: pointer;
+    transition: transform 0.5s;
+
+    &__icon {
+      margin-right: 5px;
+    }
 
     &:hover {
       background-color: #DDDDDD;
@@ -17,9 +26,12 @@
   }
 
   .folder {
+    transition: transform 0.5s;
+    position: absolute;
+    width: 100%;
+
     .children {
-      overflow-y: hidden;
-      transition: height 0.5s;
+      transition: clip-path 0.5s;
     }
   }
 }

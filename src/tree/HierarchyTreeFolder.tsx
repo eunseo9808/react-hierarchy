@@ -57,16 +57,68 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
     setIsOpen((prev) => !prev);
 
     if (!childrenRef.current) return;
-    if (!isOpen) {
-      recursiveChangeHeight(
-        childrenRef.current,
-        childrenRef.current.scrollHeight
-      );
+
+    const deltaTranslateY = getChildrenHeight();
+
+    if (isOpen) {
+      moveSiblingElements(-deltaTranslateY);
+      recursiveChangeHeight(childrenRef.current, -deltaTranslateY);
+      childrenRef.current.style.clipPath = `polygon(0 0, 0 0, 0 0, 0 0)`;
     } else {
-      recursiveChangeHeight(
-        childrenRef.current,
-        -childrenRef.current.scrollHeight
-      );
+      moveSiblingElements(deltaTranslateY);
+      recursiveChangeHeight(childrenRef.current, deltaTranslateY);
+      childrenRef.current.style.clipPath = `polygon(0 0, 100% 0, 100% ${deltaTranslateY}px, 0 ${deltaTranslateY}px)`;
+    }
+  };
+
+  const getChildrenHeight = (): number => {
+    if (!childrenRef.current) return 0;
+
+    let childrenHeight = 0;
+    for (const child of childrenRef.current.children) {
+      childrenHeight += recursiveGetChildrenHeight(child as HTMLElement);
+    }
+
+    return childrenHeight;
+  };
+
+  const recursiveGetChildrenHeight = (element: HTMLElement): number => {
+    const treeType = element.getAttribute("tree-type");
+
+    if (
+      treeType === "folder-children" &&
+      element.getAttribute("tree-open") === "false"
+    ) {
+      return 0;
+    }
+
+    if (treeType === "folder" || treeType === "folder-children") {
+      let childrenHeight = 0;
+
+      for (const child of element.children) {
+        childrenHeight += recursiveGetChildrenHeight(child as HTMLElement);
+      }
+
+      return childrenHeight;
+    }
+
+    return element.scrollHeight;
+  };
+
+  const moveSiblingElements = (deltaTranslateY: number) => {
+    let nextSibling = childrenRef.current?.parentElement?.nextElementSibling;
+
+    while (nextSibling) {
+      const nowSibling = nextSibling as HTMLElement;
+      const regex = /[-]?\d+(.\d+)?px/gi;
+      let nowTransform = nowSibling.style.transform.match(regex);
+      if (nowTransform) {
+        nowSibling.style.transform = `translateY(${
+          parseFloat(nowTransform[0].slice(0, -2)) + deltaTranslateY
+        }px)`;
+      } else nowSibling.style.transform = `translateY(${deltaTranslateY}px)`;
+
+      nextSibling = nextSibling.nextElementSibling;
     }
   };
 
@@ -75,9 +127,15 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
       const treeType = element.getAttribute("tree-type");
       if (treeType === "root") return;
       if (treeType === "folder-children") {
-        let elementHeight = parseInt(element.style.height.replace("px", ""));
-        elementHeight += targetHeight;
-        element.style.height = elementHeight + "px";
+        const regex = /[-]?[1-9]+(.\d+)?px/gi;
+        const heightMatch = element.style.clipPath.match(regex);
+        let elementHeight = 0;
+        if (heightMatch) {
+          elementHeight =
+            parseFloat(heightMatch[0].slice(0, -2)) + targetHeight;
+          elementHeight += targetHeight;
+        }
+        element.style.clipPath = `polygon(0 0, 100% 0, 100% ${elementHeight}px, 0 ${elementHeight}px)`;
       }
 
       if (element.parentElement === null) return;
@@ -87,34 +145,26 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
     []
   );
 
-  useEffect(() => {
-    if (!childrenRef.current) return;
-    if (isOpen) {
-      childrenRef.current.style.height =
-        childrenRef.current.scrollHeight + "px";
-    } else {
-      childrenRef.current.style.height = "0px";
-    }
-  }, [isOpen]);
-
   return (
     <div
       className={cx(styles.folder, {
         [className]: className,
       })}
       {...restProps}
+      tree-type="folder"
     >
-      <div
+      <HierarchyTreeElement
         className={styles.node}
-        style={{ marginLeft: depthInLength * depth, ...style }}
+        depth={depth}
         onClick={handleFolderClick}
       >
-        {normalChildren}
-      </div>
+        <span>{normalChildren}</span>
+      </HierarchyTreeElement>
       <div
         ref={childrenRef}
         className={styles.children}
         tree-type="folder-children"
+        tree-open={isOpen ? "true" : "false"}
       >
         {treeNodeChildren}
       </div>

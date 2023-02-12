@@ -15,14 +15,15 @@
     "allowSyntheticDefaultImports": true,
     "emitDeclarationOnly": true,
     "removeComments": true,
+    "noImplicitAny": false,
     "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
   "include": [
     "./src"
   ],
   "exclude": [
-    "./dist",
-    "./yarn",
+    "dist",
+    ".yarn",
     "**/*.stories.tsx",
     "src/tree",
     "**/*.spec.ts",

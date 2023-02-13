@@ -10,7 +10,6 @@ import React, {
 import { HierarchyContext } from "../context/HierarchyContext";
 import styles from "./styles.module.scss";
 import { HierarchyTreeElement } from "./HierarchyTreeElement";
-import cx from "classnames";
 
 const divideChildren = (children: React.ReactNode, depth: number) => {
   const childrenArray = React.Children.toArray(children);
@@ -42,7 +41,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
-  const { children, depth = 0, className = "", ...restProps } = props;
+  const { children, depth = 0, ...restProps } = props;
   const { defaultIsFold, animation } = useContext(HierarchyContext);
   const [isOpen, setIsOpen] = useState<boolean>(!defaultIsFold);
   const [treeNodeChildren, normalChildren] = divideChildren(children, depth);
@@ -139,18 +138,14 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
 
   return (
     <div
-      className={cx(styles.folder, {
-        [className]: className,
-      })}
-      {...restProps}
+      className={styles.folder}
       style={{
-        ...restProps.style,
         transition: animation ? "transform 0.5s" : "",
       }}
       tree-type="folder"
     >
       <HierarchyTreeElement
-        className={styles.node}
+        {...restProps}
         depth={depth}
         onClick={handleFolderClick}
       >

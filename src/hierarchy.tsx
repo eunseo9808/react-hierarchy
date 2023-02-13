@@ -5,19 +5,25 @@ import { HierarchyProps } from "./types/HierarchyProps";
 
 interface Props extends Partial<HierarchyProps> {
   data: HierarchyItems[];
+  className?: string;
   onToggleElement?: () => void;
   onClickElement?: () => void;
   folderTemplate?: (content: string) => ReactElement;
   elementTemplate?: (content: string) => ReactElement;
+  folderClassName?: string;
+  elementClassName?: string;
 }
 
 const Hierarchy = (props: Props) => {
   const {
     data,
+    className,
     onToggleElement,
     onClickElement,
     folderTemplate,
     elementTemplate,
+    folderClassName,
+    elementClassName,
     ...restProps
   } = props;
   const childrenRef = useRef<ReactElement[]>();
@@ -34,14 +40,22 @@ const Hierarchy = (props: Props) => {
     items.forEach((item) => {
       if ("items" in item && item.items !== undefined) {
         newChildren.push(
-          <HierarchyTree.Folder key={item.id} onClick={onToggleElement}>
+          <HierarchyTree.Folder
+            key={item.id}
+            onClick={onToggleElement}
+            className={folderClassName}
+          >
             {folderTemplate ? folderTemplate(item.content) : item.content}
             {recursiveCreateTree(item.items)}
           </HierarchyTree.Folder>
         );
       } else {
         newChildren.push(
-          <HierarchyTree.Element key={item.id} onClick={onClickElement}>
+          <HierarchyTree.Element
+            key={item.id}
+            onClick={onClickElement}
+            className={elementClassName}
+          >
             {elementTemplate ? elementTemplate(item.content) : item.content}
           </HierarchyTree.Element>
         );
@@ -62,7 +76,11 @@ const Hierarchy = (props: Props) => {
     forceUpdate();
   }, [data, forceUpdate]);
 
-  return <HierarchyTree {...restProps}>{childrenRef.current}</HierarchyTree>;
+  return (
+    <HierarchyTree className={className} {...restProps}>
+      {childrenRef.current}
+    </HierarchyTree>
+  );
 };
 
 export default Hierarchy;

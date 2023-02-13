@@ -1,4 +1,4 @@
-import React, { ReactElement, useLayoutEffect, useState } from "react";
+import React, { ReactElement, useLayoutEffect, useRef, useState } from "react";
 import HierarchyTree from "./tree";
 import { HierarchyElement, HierarchyItems } from "./types/HierarchyTypes";
 import { HierarchyProps } from "./types/HierarchyProps";
@@ -11,7 +11,10 @@ interface Props extends Partial<HierarchyProps> {
 
 const Hierarchy = (props: Props) => {
   const { data, onToggleElement, onClickElement, ...restProps } = props;
-  const [children, setChildren] = useState<ReactElement[]>();
+  const childrenRef = useRef<ReactElement[]>();
+  const willUpdateRef = useRef<boolean>(false);
+  const [, updateState] = React.useState<any>();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
 
   const recursiveCreateTree = (
     items: HierarchyItems[]
@@ -39,12 +42,18 @@ const Hierarchy = (props: Props) => {
     return newChildren;
   };
 
-  useLayoutEffect(() => {
-    const newChildren = recursiveCreateTree(data);
-    setChildren(newChildren);
-  }, [data]);
+  if (!willUpdateRef.current) {
+    childrenRef.current = recursiveCreateTree(data);
+  }
 
-  return <HierarchyTree {...restProps}>{children}</HierarchyTree>;
+  willUpdateRef.current = true;
+
+  useLayoutEffect(() => {
+    willUpdateRef.current = false;
+    forceUpdate();
+  }, [data, forceUpdate]);
+
+  return <HierarchyTree {...restProps}>{childrenRef.current}</HierarchyTree>;
 };
 
 export default Hierarchy;

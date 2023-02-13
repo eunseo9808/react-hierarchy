@@ -1,16 +1,25 @@
 import React, { ReactElement, useLayoutEffect, useRef, useState } from "react";
 import HierarchyTree from "./tree";
-import { HierarchyElement, HierarchyItems } from "./types/HierarchyTypes";
+import { HierarchyItems } from "./types/HierarchyTypes";
 import { HierarchyProps } from "./types/HierarchyProps";
 
 interface Props extends Partial<HierarchyProps> {
   data: HierarchyItems[];
-  onToggleElement: () => void;
-  onClickElement: () => void;
+  onToggleElement?: () => void;
+  onClickElement?: () => void;
+  folderTemplate?: (content: string) => ReactElement;
+  elementTemplate?: (content: string) => ReactElement;
 }
 
 const Hierarchy = (props: Props) => {
-  const { data, onToggleElement, onClickElement, ...restProps } = props;
+  const {
+    data,
+    onToggleElement,
+    onClickElement,
+    folderTemplate,
+    elementTemplate,
+    ...restProps
+  } = props;
   const childrenRef = useRef<ReactElement[]>();
   const willUpdateRef = useRef<boolean>(false);
   const [, updateState] = React.useState<any>();
@@ -26,14 +35,14 @@ const Hierarchy = (props: Props) => {
       if ("items" in item && item.items !== undefined) {
         newChildren.push(
           <HierarchyTree.Folder key={item.id} onClick={onToggleElement}>
-            {item.content}
+            {folderTemplate ? folderTemplate(item.content) : item.content}
             {recursiveCreateTree(item.items)}
           </HierarchyTree.Folder>
         );
       } else {
         newChildren.push(
           <HierarchyTree.Element key={item.id} onClick={onClickElement}>
-            {item.content}
+            {elementTemplate ? elementTemplate(item.content) : item.content}
           </HierarchyTree.Element>
         );
       }

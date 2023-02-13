@@ -3,7 +3,6 @@ import React, {
   HTMLAttributes,
   isValidElement,
   ReactNode,
-  useCallback,
   useContext,
   useRef,
   useState,
@@ -115,28 +114,28 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
     }
   };
 
-  const recursiveChangeHeight = useCallback(
-    (element: HTMLElement, targetHeight: number): any => {
-      const treeType = element.getAttribute("tree-type");
-      if (treeType === "root") return;
-      if (treeType === "folder-children") {
-        const regex = /[-]?[1-9]+(.\d+)?px/gi;
-        const heightMatch = element.style.clipPath.match(regex);
-        let elementHeight = 0;
-        if (heightMatch) {
-          elementHeight = parseFloat(heightMatch[0].slice(0, -2));
-        }
-
-        elementHeight += targetHeight;
-        element.style.clipPath = `polygon(0 0, 100% 0, 100% ${elementHeight}px, 0 ${elementHeight}px)`;
+  const recursiveChangeHeight = (
+    element: HTMLElement,
+    targetHeight: number
+  ): any => {
+    const treeType = element.getAttribute("tree-type");
+    if (treeType === "root") return;
+    if (treeType === "folder-children") {
+      const regex = /[-]?[1-9]+(.\d+)?px/gi;
+      const heightMatch = element.style.clipPath.match(regex);
+      let elementHeight = 0;
+      if (heightMatch) {
+        elementHeight = parseFloat(heightMatch[0].slice(0, -2));
       }
 
-      if (element.parentElement === null) return;
+      elementHeight += targetHeight;
+      element.style.clipPath = `polygon(0 0, 100% 0, 100% ${elementHeight}px, 0 ${elementHeight}px)`;
+    }
 
-      return recursiveChangeHeight(element.parentElement, targetHeight);
-    },
-    []
-  );
+    if (element.parentElement === null) return;
+
+    return recursiveChangeHeight(element.parentElement, targetHeight);
+  };
 
   return (
     <div

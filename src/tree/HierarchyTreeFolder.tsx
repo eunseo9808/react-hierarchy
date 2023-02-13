@@ -129,7 +129,6 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
         }
 
         elementHeight += targetHeight;
-
         element.style.clipPath = `polygon(0 0, 100% 0, 100% ${elementHeight}px, 0 ${elementHeight}px)`;
       }
 

@@ -6,8 +6,14 @@ import { HierarchyProps } from "./types/HierarchyProps";
 interface Props extends Partial<HierarchyProps> {
   data: HierarchyItems[];
   className?: string;
-  onToggleElement?: () => void;
-  onClickElement?: () => void;
+  onToggleFolder?: (
+    e: React.MouseEvent<HTMLDivElement>,
+    id: string | number
+  ) => void;
+  onClickElement?: (
+    e: React.MouseEvent<HTMLDivElement>,
+    id: string | number
+  ) => void;
   folderTemplate?: (content: string) => ReactElement;
   elementTemplate?: (content: string) => ReactElement;
   folderClassName?: string;
@@ -18,7 +24,7 @@ const Hierarchy = (props: Props) => {
   const {
     data,
     className,
-    onToggleElement,
+    onToggleFolder,
     onClickElement,
     folderTemplate,
     elementTemplate,
@@ -42,7 +48,7 @@ const Hierarchy = (props: Props) => {
         newChildren.push(
           <HierarchyTree.Folder
             key={item.id}
-            onClick={onToggleElement}
+            onClick={(e) => (onToggleFolder ? onToggleFolder(e, item.id) : {})}
             className={folderClassName}
           >
             {folderTemplate ? folderTemplate(item.content) : item.content}
@@ -53,7 +59,7 @@ const Hierarchy = (props: Props) => {
         newChildren.push(
           <HierarchyTree.Element
             key={item.id}
-            onClick={onClickElement}
+            onClick={(e) => (onClickElement ? onClickElement(e, item.id) : {})}
             className={elementClassName}
           >
             {elementTemplate ? elementTemplate(item.content) : item.content}

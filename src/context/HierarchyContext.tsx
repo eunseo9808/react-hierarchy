@@ -1,40 +1,31 @@
-import React, {
-  createContext,
-  ReactNode,
-  Ref,
-  useCallback,
-  useRef,
-} from "react";
+import React, { createContext, ReactNode } from "react";
+import { HierarchyProps } from "../types/HierarchyProps";
 
-type HierarchyContextType = {
-  defaultIsFold: boolean;
-  depthInLength: number;
-  setTreeRootRef: (ref: Ref<HTMLDivElement>) => void;
-};
-
-export const HierarchyContext = createContext<HierarchyContextType>({
-  defaultIsFold: false,
+export const HierarchyContext = createContext<HierarchyProps>({
+  defaultIsFold: true,
   depthInLength: 20,
-  setTreeRootRef: () => {},
+  animation: true,
 });
 
-interface Props {
+interface Props extends Partial<HierarchyProps> {
   children: ReactNode;
-  defaultIsFold: boolean;
-  depthInLength: number;
 }
 
 export const HierarchyContextProvider = (props: Props) => {
-  const { children, defaultIsFold, depthInLength } = props;
-  const treeRootRef = useRef<Ref<HTMLDivElement>>(null);
-
-  const setTreeRootRef = useCallback((ref: Ref<HTMLDivElement>) => {
-    treeRootRef.current = ref;
-  }, []);
+  const {
+    children,
+    defaultIsFold = true,
+    depthInLength = 20,
+    animation = true,
+  } = props;
 
   return (
     <HierarchyContext.Provider
-      value={{ defaultIsFold, depthInLength, setTreeRootRef }}
+      value={{
+        defaultIsFold,
+        depthInLength,
+        animation,
+      }}
     >
       {children}
     </HierarchyContext.Provider>

@@ -1,32 +1,37 @@
 import React, { ReactElement, useLayoutEffect, useState } from "react";
 import HierarchyTree from "./tree";
-import { Items } from "./types/items";
+import { HierarchyElement, HierarchyItems } from "./types/HierarchyTypes";
+import { HierarchyProps } from "./types/HierarchyProps";
 
-interface Props {
-  data: Items[];
+interface Props extends Partial<HierarchyProps> {
+  data: HierarchyItems[];
+  onToggleElement: () => void;
+  onClickElement: () => void;
 }
 
 const Hierarchy = (props: Props) => {
-  const { data } = props;
+  const { data, onToggleElement, onClickElement, ...restProps } = props;
   const [children, setChildren] = useState<ReactElement[]>();
 
-  const recursiveCreateTree = (items: Items[]): ReactElement[] | undefined => {
+  const recursiveCreateTree = (
+    items: HierarchyItems[]
+  ): ReactElement[] | undefined => {
     const newChildren: ReactElement[] = [];
     if (items === undefined || items.length <= 0) return;
 
     items.forEach((item) => {
-      if (item.items === undefined || item.items.length <= 0) {
+      if ("items" in item && item.items !== undefined) {
         newChildren.push(
-          <HierarchyTree.Element key={item.id}>
-            {item.content}
-          </HierarchyTree.Element>
-        );
-      } else {
-        newChildren.push(
-          <HierarchyTree.Folder key={item.id}>
+          <HierarchyTree.Folder key={item.id} onClick={onToggleElement}>
             {item.content}
             {recursiveCreateTree(item.items)}
           </HierarchyTree.Folder>
+        );
+      } else {
+        newChildren.push(
+          <HierarchyTree.Element key={item.id} onClick={onClickElement}>
+            {item.content}
+          </HierarchyTree.Element>
         );
       }
     });
@@ -39,7 +44,7 @@ const Hierarchy = (props: Props) => {
     setChildren(newChildren);
   }, [data]);
 
-  return <HierarchyTree>{children}</HierarchyTree>;
+  return <HierarchyTree {...restProps}>{children}</HierarchyTree>;
 };
 
 export default Hierarchy;

@@ -1,6 +1,6 @@
-import { Items } from "../../types/items";
+import { HierarchyItems } from "../../types/HierarchyTypes";
 
-export const items: Items[] = [
+export const items: HierarchyItems[] = [
   {
     id: 1,
     content: "folder1",

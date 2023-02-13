@@ -1,20 +1,14 @@
-import React, {
-  HTMLAttributes,
-  ReactNode,
-  useEffect,
-  useMemo,
-  useRef,
-} from "react";
+import React, { ReactNode, useEffect, useRef } from "react";
 import { HierarchyContextProvider } from "../context/HierarchyContext";
 import HierarchyTreeFolder from "./HierarchyTreeFolder";
 import HierarchyTreeElement from "./HierarchyTreeElement";
 import styles from "./styles.module.scss";
 import cx from "classnames";
+import { HierarchyProps } from "../types/HierarchyProps";
 
-interface Props extends HTMLAttributes<HTMLDivElement> {
+interface Props extends Partial<HierarchyProps> {
   children?: ReactNode;
-  defaultIsFold?: boolean;
-  depthInLength?: number;
+  className?: string;
 }
 
 type HierarchyTreeType = React.FC<Props> & {
@@ -23,13 +17,7 @@ type HierarchyTreeType = React.FC<Props> & {
 };
 
 const HierarchyTree: HierarchyTreeType = (props: Props) => {
-  const {
-    children,
-    className = "",
-    defaultIsFold = true,
-    depthInLength = 20,
-    ...restProps
-  } = props;
+  const { children, className = "", ...restProps } = props;
   const rootRef = useRef<HTMLDivElement>(null);
 
   const recursiveSetTranslateY = (
@@ -71,15 +59,11 @@ const HierarchyTree: HierarchyTreeType = (props: Props) => {
   }, []);
 
   return (
-    <HierarchyContextProvider
-      defaultIsFold={defaultIsFold}
-      depthInLength={depthInLength}
-    >
+    <HierarchyContextProvider {...restProps}>
       <div
         className={cx(styles.tree, {
           [className]: className,
         })}
-        {...restProps}
         tree-type="root"
         ref={rootRef}
       >

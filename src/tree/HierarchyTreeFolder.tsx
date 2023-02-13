@@ -5,7 +5,6 @@ import React, {
   ReactNode,
   useCallback,
   useContext,
-  useEffect,
   useRef,
   useState,
 } from "react";
@@ -44,8 +43,8 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
-  const { children, depth = 0, className = "", style, ...restProps } = props;
-  const { defaultIsFold, depthInLength } = useContext(HierarchyContext);
+  const { children, depth = 0, className = "", ...restProps } = props;
+  const { defaultIsFold, animation } = useContext(HierarchyContext);
   const [isOpen, setIsOpen] = useState<boolean>(!defaultIsFold);
   const [treeNodeChildren, normalChildren] = divideChildren(children, depth);
   const childrenRef = useRef<HTMLDivElement>(null);
@@ -145,6 +144,10 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
         [className]: className,
       })}
       {...restProps}
+      style={{
+        ...restProps.style,
+        transition: animation ? "transform 0.5s" : "",
+      }}
       tree-type="folder"
     >
       <HierarchyTreeElement
@@ -156,9 +159,9 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
       </HierarchyTreeElement>
       <div
         ref={childrenRef}
-        className={styles.children}
         tree-type="folder-children"
         tree-open={isOpen ? "true" : "false"}
+        style={animation ? { transition: "clip-path 0.5s" } : {}}
       >
         {treeNodeChildren}
       </div>

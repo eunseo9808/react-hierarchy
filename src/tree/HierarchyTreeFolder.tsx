@@ -58,17 +58,11 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
 
     if (!childrenRef.current) return;
 
-    const deltaTranslateY = getChildrenHeight();
+    let deltaTranslateY = getChildrenHeight();
+    deltaTranslateY = isOpen ? -deltaTranslateY : deltaTranslateY;
 
-    if (isOpen) {
-      moveSiblingElements(-deltaTranslateY);
-      recursiveChangeHeight(childrenRef.current, -deltaTranslateY);
-      childrenRef.current.style.clipPath = `polygon(0 0, 0 0, 0 0, 0 0)`;
-    } else {
-      moveSiblingElements(deltaTranslateY);
-      recursiveChangeHeight(childrenRef.current, deltaTranslateY);
-      childrenRef.current.style.clipPath = `polygon(0 0, 100% 0, 100% ${deltaTranslateY}px, 0 ${deltaTranslateY}px)`;
-    }
+    moveSiblingElements(deltaTranslateY);
+    recursiveChangeHeight(childrenRef.current, deltaTranslateY);
   };
 
   const getChildrenHeight = (): number => {
@@ -131,10 +125,11 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
         const heightMatch = element.style.clipPath.match(regex);
         let elementHeight = 0;
         if (heightMatch) {
-          elementHeight =
-            parseFloat(heightMatch[0].slice(0, -2)) + targetHeight;
-          elementHeight += targetHeight;
+          elementHeight = parseFloat(heightMatch[0].slice(0, -2));
         }
+
+        elementHeight += targetHeight;
+
         element.style.clipPath = `polygon(0 0, 100% 0, 100% ${elementHeight}px, 0 ${elementHeight}px)`;
       }
 

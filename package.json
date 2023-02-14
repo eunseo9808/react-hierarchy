@@ -1,10 +1,14 @@
 {
-  "name": "react-hierarchy",
+  "name": "@eunseu/react-hierarchy",
+  "author": "eunseo9808@naver.com",
+  "version": "0.0.5",
   "packageManager": "yarn@3.4.1",
-  "main": "./dist/index.js",
-  "module": "./dist/index.es.js",
-  "browser": "./dist/index.umd.js",
-  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@babel/preset-env": "^7.20.2",

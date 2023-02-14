@@ -19,20 +19,11 @@ const config = [
         file: pkg.main,
         format: "cjs",
         exports: "auto",
-        sourcemap: true,
       },
       {
         file: pkg.module,
         format: "esm",
         exports: "auto",
-        sourcemap: true,
-      },
-      {
-        name: pkg.name,
-        file: pkg.browser,
-        format: "umd",
-        exports: "auto",
-        sourcemap: true,
       },
     ],
     plugins: [
@@ -40,7 +31,6 @@ const config = [
       nodeResolve({ extensions }),
       typescript({
         tsconfig: "./tsconfig.json",
-        sourceMap: true,
       }),
       commonjs(),
       terser(),
@@ -59,6 +49,7 @@ const config = [
         }
       })
     ],
+    external: ['react', 'react-dom']
   },
 ];
 export default config;

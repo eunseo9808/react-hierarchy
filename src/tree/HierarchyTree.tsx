@@ -43,7 +43,7 @@ const HierarchyTree: HierarchyTreeType = (props: Props) => {
         treeType === "folder-children" &&
         element.getAttribute("tree-open") === "false"
       ) {
-        element.style.clipPath = "polygon(0 0, 0 0, 0 0, 0 0)";
+        element.style.clipPath = "polygon(0 0, 100% 0, 100% 0, 0 0)";
         return prevTranslateY;
       }
 

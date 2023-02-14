@@ -115,7 +115,7 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
 
   const recursiveChangeHeight = (
     element: HTMLElement,
-    targetHeight: number
+    changeHeight: number
   ): any => {
     const treeType = element.getAttribute("tree-type");
     if (treeType === "root") return;
@@ -127,13 +127,13 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
         elementHeight = parseFloat(heightMatch[0].slice(0, -2));
       }
 
-      elementHeight += targetHeight;
+      elementHeight += changeHeight;
       element.style.clipPath = `polygon(0 0, 100% 0, 100% ${elementHeight}px, 0 ${elementHeight}px)`;
     }
 
     if (element.parentElement === null) return;
 
-    return recursiveChangeHeight(element.parentElement, targetHeight);
+    return recursiveChangeHeight(element.parentElement, changeHeight);
   };
 
   return (

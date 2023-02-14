@@ -33,18 +33,22 @@ const HierarchyTree: HierarchyTreeType = (props: Props) => {
       treeType === "root" ||
       treeType === "folder-children"
     ) {
-      let translateY = 0;
-
-      for (const child of element.children) {
-        translateY = recursiveSetTranslateY(child as HTMLElement, translateY);
-      }
-
       if (
         treeType === "folder-children" &&
         element.getAttribute("tree-open") === "false"
       ) {
+        for (const child of element.children) {
+          recursiveSetTranslateY(child as HTMLElement, -child.scrollHeight);
+        }
+
         element.style.height = "0px";
         return prevTranslateY;
+      }
+
+      let translateY = 0;
+
+      for (const child of element.children) {
+        translateY = recursiveSetTranslateY(child as HTMLElement, translateY);
       }
 
       return prevTranslateY + translateY;

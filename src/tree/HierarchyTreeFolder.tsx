@@ -55,18 +55,35 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
 
     if (!childrenRef.current) return;
 
-    let changeHeight = getChildrenHeight();
+    let changeHeight = startAnimationSetting();
     changeHeight = isOpen ? -changeHeight : changeHeight;
 
     moveSiblingElements(changeHeight);
-    recursiveChangeHeight(childrenRef.current, changeHeight);
+    if (changeHeight < 0) {
+      setTimeout(() => {
+        recursiveChangeHeight(childrenRef.current, changeHeight);
+      }, 500);
+      childrenRef.current.style.opacity = "0";
+    } else {
+      recursiveChangeHeight(childrenRef.current, changeHeight);
+      childrenRef.current.style.opacity = "1";
+    }
   };
 
-  const getChildrenHeight = (): number => {
+  const startAnimationSetting = (): number => {
     if (!childrenRef.current) return 0;
 
     let childrenHeight = 0;
     for (const child of childrenRef.current.children) {
+      if (isOpen) {
+        (
+          child as HTMLElement
+        ).style.transform = `translateY(${-child.scrollHeight}px)`;
+      } else {
+        (
+          child as HTMLElement
+        ).style.transform = `translateY(${childrenHeight}px)`;
+      }
       childrenHeight += recursiveGetChildrenHeight(child as HTMLElement);
     }
 
@@ -114,9 +131,10 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
   };
 
   const recursiveChangeHeight = (
-    element: HTMLElement,
+    element: HTMLElement | null,
     changeHeight: number
   ): any => {
+    if (!element) return;
     const treeType = element.getAttribute("tree-type");
     if (treeType === "root") return;
     if (treeType === "folder-children") {
@@ -151,7 +169,7 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
         className={styles.children}
         tree-type="folder-children"
         tree-open={isOpen ? "true" : "false"}
-        style={animation ? { transition: "height 0.5s" } : {}}
+        style={{ transition: animation ? "opacity 0.3s" : "" }}
       >
         {treeNodeChildren}
       </div>

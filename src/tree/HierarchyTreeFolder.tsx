@@ -55,11 +55,11 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
 
     if (!childrenRef.current) return;
 
-    let deltaTranslateY = getChildrenHeight();
-    deltaTranslateY = isOpen ? -deltaTranslateY : deltaTranslateY;
+    let changeHeight = getChildrenHeight();
+    changeHeight = isOpen ? -changeHeight : changeHeight;
 
-    moveSiblingElements(deltaTranslateY);
-    recursiveChangeHeight(childrenRef.current, deltaTranslateY);
+    moveSiblingElements(changeHeight);
+    recursiveChangeHeight(childrenRef.current, changeHeight);
   };
 
   const getChildrenHeight = (): number => {
@@ -96,7 +96,7 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
     return element.scrollHeight;
   };
 
-  const moveSiblingElements = (deltaTranslateY: number) => {
+  const moveSiblingElements = (changeHeight: number) => {
     let nextSibling = childrenRef.current?.parentElement?.nextElementSibling;
 
     while (nextSibling) {
@@ -105,9 +105,9 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
       let nowTransform = nowSibling.style.transform.match(regex);
       if (nowTransform) {
         nowSibling.style.transform = `translateY(${
-          parseFloat(nowTransform[0].slice(0, -2)) + deltaTranslateY
+          parseFloat(nowTransform[0].slice(0, -2)) + changeHeight
         }px)`;
-      } else nowSibling.style.transform = `translateY(${deltaTranslateY}px)`;
+      } else nowSibling.style.transform = `translateY(${changeHeight}px)`;
 
       nextSibling = nextSibling.nextElementSibling;
     }

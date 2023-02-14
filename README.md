@@ -3,13 +3,11 @@ React Hierarchy Component that can be easily customized.
 
 ## Demo
 
----
 ![demo](./.doc/demo.gif)
 
 
 ## Install
 
-----
 ```shell
 yarn add @eunseu/react-hierarchy
 ```
@@ -20,7 +18,6 @@ npm install @eunseu/react-hierarchy
 
 ## Usage
 
-------
 You can use this library in two ways.<br>
 <b>First</b>, you can pass data as props
 
@@ -52,7 +49,6 @@ import { HierarchyTree } from '@eunseu/react-hierarchy';
 ```
 ## Data Format
 
-------
 If you want to create hierarchy as data, you should input your data
 
 - required: `id`, `content`
@@ -80,7 +76,6 @@ If you want to create hierarchy as data, you should input your data
 
 ## Props
 
----
 ### Hierarchy
 | Name             | Type                                                        | Default | Required | Description                                                          |
 |------------------|-------------------------------------------------------------|---------|----------|----------------------------------------------------------------------|
@@ -104,5 +99,4 @@ If you want to create hierarchy as data, you should input your data
 
 ## Contributing
 
----
 - open issues and PRs and we'll work together!

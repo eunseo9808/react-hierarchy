@@ -26,5 +26,9 @@
   .folder {
     position: absolute;
     width: 100%;
+
+    .children {
+      overflow: hidden;
+    }
   }
 }

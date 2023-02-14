@@ -120,15 +120,10 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
     const treeType = element.getAttribute("tree-type");
     if (treeType === "root") return;
     if (treeType === "folder-children") {
-      const regex = /[-]?[1-9]+(.\d+)?px/gi;
-      const heightMatch = element.style.clipPath.match(regex);
-      let elementHeight = 0;
-      if (heightMatch) {
-        elementHeight = parseFloat(heightMatch[0].slice(0, -2));
-      }
+      let elementHeight = parseFloat(element.style.height.replace("px", ""));
 
       elementHeight += changeHeight;
-      element.style.clipPath = `polygon(0 0, 100% 0, 100% ${elementHeight}px, 0 ${elementHeight}px)`;
+      element.style.height = `${elementHeight}px`;
     }
 
     if (element.parentElement === null) return;
@@ -153,9 +148,10 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
       </HierarchyTreeElement>
       <div
         ref={childrenRef}
+        className={styles.children}
         tree-type="folder-children"
         tree-open={isOpen ? "true" : "false"}
-        style={animation ? { transition: "clip-path 0.5s" } : {}}
+        style={animation ? { transition: "height 0.5s" } : {}}
       >
         {treeNodeChildren}
       </div>

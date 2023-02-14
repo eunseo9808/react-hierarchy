@@ -66,7 +66,7 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
       childrenRef.current.style.opacity = "0";
     } else {
       recursiveChangeHeight(childrenRef.current, changeHeight);
-      childrenRef.current.style.opacity = "1";
+      childrenRef.current.style.opacity = "0.99";
     }
   };
 

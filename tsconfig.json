@@ -16,7 +16,8 @@
     "emitDeclarationOnly": true,
     "removeComments": true,
     "noImplicitAny": false,
-    "plugins": [{ "name": "typescript-plugin-css-modules" }]
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "types": ["jest"]
   },
   "include": [
     "./src"
@@ -26,7 +27,6 @@
     ".yarn",
     "**/*.stories.tsx",
     "src/tree",
-    "**/*.spec.ts",
     "node_modules"
   ]
 }

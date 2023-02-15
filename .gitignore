@@ -27,3 +27,4 @@ thumb
 sketch
 .idea
 dist
+**/__snapshots__

@@ -5,7 +5,8 @@ name: Automatic publish package
 
 on:
   push:
-    branches: [release]
+    tags:
+      - 'v*'
 
 jobs:
   setting:
@@ -18,6 +19,11 @@ jobs:
 
       - run: yarn install --immutable --immutable-cache
       - run: yarn test --updateSnapshot
+
+      - name: Check package version
+          uses: technote-space/package-version-check-action@v1
+          with:
+            COMMIT_DISABLED: 1
 
   build-and-publish:
     needs: setting

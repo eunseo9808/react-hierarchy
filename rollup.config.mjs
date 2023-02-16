@@ -15,12 +15,12 @@ const config = [
     input: "./src/index.ts",
     output: [
       {
-        file: pkg.main,
+        file: "dist/" + pkg.main,
         format: "cjs",
         exports: "auto",
       },
       {
-        file: pkg.module,
+        file: "dist/" + pkg.module,
         format: "esm",
         exports: "auto",
       },

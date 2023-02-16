@@ -1,14 +1,12 @@
 {
   "name": "@eunseu/react-hierarchy",
   "author": "eunseo9808@naver.com",
-  "version": "0.0.8",
+  "version": "0.0.13",
   "packageManager": "yarn@3.4.1",
-  "files": [
-    "dist/**"
-  ],
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
-  "types": "dist/index.d.ts",
+
+  "main": "index.js",
+  "module": "index.es.js",
+  "types": "types/index.d.ts",
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@babel/preset-env": "^7.20.2",
@@ -54,6 +52,7 @@
     "eslint-plugin-storybook": "^0.6.10",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.4.2",
+    "jest-cli": "^29.4.3",
     "jest-environment-jsdom": "^29.4.2",
     "jest-plugin-context": "^2.9.0",
     "postcss": "^8.4.21",

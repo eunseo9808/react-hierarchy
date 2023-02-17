@@ -32,6 +32,7 @@ jobs:
 
       - run: yarn build
       - run: cp package.json dist
+      - run: cp README.md dist
       - run: |
           cd dist
           npm publish

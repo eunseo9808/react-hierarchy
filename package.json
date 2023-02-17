@@ -1,9 +1,8 @@
 {
   "name": "@eunseu/react-hierarchy",
   "author": "eunseo9808@naver.com",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "packageManager": "yarn@3.4.1",
-
   "main": "index.js",
   "module": "index.es.js",
   "types": "types/index.d.ts",

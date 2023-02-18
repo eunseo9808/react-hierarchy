@@ -1,9 +1,8 @@
+import { css } from "@emotion/react";
 import React, { ReactNode, useEffect, useRef } from "react";
 import { HierarchyContextProvider } from "../context/HierarchyContext";
 import HierarchyTreeFolder from "./HierarchyTreeFolder";
 import HierarchyTreeElement from "./HierarchyTreeElement";
-import styles from "./styles.module.scss";
-import cx from "classnames";
 import { HierarchyProps } from "../types/HierarchyProps";
 
 interface Props extends Partial<HierarchyProps> {
@@ -65,9 +64,11 @@ const HierarchyTree: HierarchyTreeType = (props: Props) => {
   return (
     <HierarchyContextProvider {...restProps}>
       <div
-        className={cx(styles.tree, {
-          [className]: className,
-        })}
+        className={className}
+        css={css`
+          position: relative;
+          width: 100%;
+        `}
         tree-type="root"
         ref={rootRef}
       >

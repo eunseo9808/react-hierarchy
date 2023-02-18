@@ -5,7 +5,8 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "jsx": "react",
+    "jsxImportSource": "@emotion/react",
+    "jsx": "react-jsx",
     "module": "ESNext",
     "declaration": true,
     "declarationDir": "./types",
@@ -16,7 +17,6 @@
     "emitDeclarationOnly": true,
     "removeComments": true,
     "noImplicitAny": false,
-    "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "types": ["jest"]
   },
   "include": [

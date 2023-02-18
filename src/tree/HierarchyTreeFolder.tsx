@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import React, {
   cloneElement,
   HTMLAttributes,
@@ -8,7 +9,6 @@ import React, {
   useState,
 } from "react";
 import { HierarchyContext } from "../context/HierarchyContext";
-import styles from "./styles.module.scss";
 import { HierarchyTreeElement } from "./HierarchyTreeElement";
 
 const divideChildren = (children: React.ReactNode, depth: number) => {
@@ -151,7 +151,10 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
 
   return (
     <div
-      className={styles.folder}
+      css={css`
+        position: absolute;
+        width: 100%;
+      `}
       style={{
         transition: animation ? "transform 0.5s" : "",
       }}
@@ -166,7 +169,9 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
       </HierarchyTreeElement>
       <div
         ref={childrenRef}
-        className={styles.children}
+        css={css`
+          overflow: hidden;
+        `}
         tree-type="folder-children"
         tree-open={isOpen ? "true" : "false"}
         style={{ transition: animation ? "opacity 0.3s" : "" }}

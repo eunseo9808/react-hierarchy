@@ -1,7 +1,6 @@
 import commonjs from "@rollup/plugin-commonjs";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
-import postcss from "rollup-plugin-postcss";
 import clear from "rollup-plugin-clear";
 import { terser } from "rollup-plugin-terser";
 import svgr from '@svgr/rollup'
@@ -33,14 +32,6 @@ const config = [
       }),
       commonjs(),
       terser(),
-      postcss({
-        extract: false,
-        inject: (cssVariableName) =>
-          `import styleInject from 'style-inject';styleInject(${cssVariableName});`,
-        modules: true,
-        sourceMap: false,
-        use: ["sass"],
-      }),
       svgr({
         svgoConfig: {
           plugins: []

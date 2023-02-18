@@ -1,7 +1,6 @@
 import React, { HTMLAttributes, ReactNode, useContext } from "react";
-import styles from "./styles.module.scss";
+import { css } from "@emotion/react";
 import { HierarchyContext } from "../context/HierarchyContext";
-import cx from "classnames";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
@@ -15,9 +14,27 @@ export const HierarchyTreeElement: React.FC<Props> = (props: Props) => {
 
   return (
     <div
-      className={cx(styles.node, {
-        [className]: className,
-      })}
+      className={className}
+      css={css`
+        position: absolute;
+        left: 0;
+        right: 0;
+
+        display: flex;
+        align-items: center;
+        padding: 12px 8px;
+        box-sizing: border-box;
+        height: 60px;
+        border-radius: 5px;
+
+        background-color: white;
+        user-select: none;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #dddddd;
+        }
+      `}
       {...restProps}
       tree-type="element"
       style={{

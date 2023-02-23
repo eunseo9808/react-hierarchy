@@ -82,7 +82,7 @@ If you want to create hierarchy as data, you should input your data
 | data             | `HierarchyItems[]`                                          | null    | Y        | The data set for react hierarchy to render                           |
 | onToggleFolder   | `(e: React.MouseEvent<HTMLDivElement>, id: string) => void` | null    | N        | Event listener called on open some folder action                     |
 | onClickElement   | `(e: React.MouseEvent<HTMLDivElement>, id: string) => void` | null    | N        | Event listener called on click element action                        |
-| folderTemplate   | `(content: string) => ReactElement`                         | null    | N        | The contents of the folder can be customized through React Element.  |
+| folderTemplate   | `({content: string, isOpened: boolean}) => ReactElement`                         | null    | N        | The contents of the folder can be customized through React Element.  |
 | elementTemplate  | `(content: string) => ReactElement`                         | null    | N        | The contents of the element can be customized through React Element. |
 | folderClassName  | `string`                                                    | null    | N        | Specify className in the folder                                      |
 | elementClassName | `string`                                                    | null    | N        | Specify className in the element                                     |                                     

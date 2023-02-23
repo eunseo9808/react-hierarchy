@@ -38,9 +38,11 @@ const divideChildren = (children: React.ReactNode, depth: number) => {
 type RenderChildren = (isOpened: boolean) => ReactNode;
 type ChildrenType = RenderChildren | ReactNode;
 
-interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+interface Props
+  extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onClick"> {
   children: ChildrenType;
   depth?: number;
+  onClick: (e: React.MouseEvent<HTMLDivElement>, value: boolean) => void;
 }
 
 const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
@@ -55,7 +57,7 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
   const handleFolderClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
-    if (restProps.onClick) restProps.onClick(e);
+    if (restProps.onClick) restProps.onClick(e, !isOpen);
     setIsOpen((prev) => !prev);
 
     if (!childrenRef.current) return;

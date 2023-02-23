@@ -13,7 +13,8 @@ interface Props extends Partial<HierarchyProps> {
   className?: string;
   onToggleFolder?: (
     e: React.MouseEvent<HTMLDivElement>,
-    id: string | number
+    id: string | number,
+    value: boolean
   ) => void;
   onClickElement?: (
     e: React.MouseEvent<HTMLDivElement>,
@@ -53,7 +54,9 @@ const Hierarchy = (props: Props) => {
         newChildren.push(
           <HierarchyTree.Folder
             key={item.id}
-            onClick={(e) => (onToggleFolder ? onToggleFolder(e, item.id) : {})}
+            onClick={(e, value) =>
+              onToggleFolder ? onToggleFolder(e, item.id, value) : {}
+            }
             className={folderClassName}
           >
             {(isOpened) => {

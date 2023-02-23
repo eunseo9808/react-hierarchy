@@ -3,7 +3,7 @@ import HierarchyTree from "./tree";
 import { HierarchyItems } from "./types/HierarchyTypes";
 import { HierarchyProps } from "./types/HierarchyProps";
 
-interface FolderTempleteProps {
+export interface FolderTempleteProps {
   content: string;
   isOpened?: boolean;
 }

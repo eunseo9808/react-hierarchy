@@ -3,6 +3,11 @@ import HierarchyTree from "./tree";
 import { HierarchyItems } from "./types/HierarchyTypes";
 import { HierarchyProps } from "./types/HierarchyProps";
 
+interface FolderTempleteProps {
+  content: string;
+  isOpened?: boolean;
+}
+
 interface Props extends Partial<HierarchyProps> {
   data: HierarchyItems[];
   className?: string;
@@ -14,7 +19,7 @@ interface Props extends Partial<HierarchyProps> {
     e: React.MouseEvent<HTMLDivElement>,
     id: string | number
   ) => void;
-  folderTemplate?: (content: string) => ReactElement;
+  folderTemplate?: (props: FolderTempleteProps) => ReactElement;
   elementTemplate?: (content: string) => ReactElement;
   folderClassName?: string;
   elementClassName?: string;
@@ -51,8 +56,14 @@ const Hierarchy = (props: Props) => {
             onClick={(e) => (onToggleFolder ? onToggleFolder(e, item.id) : {})}
             className={folderClassName}
           >
-            {folderTemplate ? folderTemplate(item.content) : item.content}
-            {recursiveCreateTree(item.items)}
+            {(isOpened) => {
+              return [
+                folderTemplate
+                  ? folderTemplate({ content: item.content, isOpened })
+                  : item.content,
+                recursiveCreateTree(item.items as HierarchyItems[]),
+              ];
+            }}
           </HierarchyTree.Folder>
         );
       } else {

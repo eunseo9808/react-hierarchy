@@ -35,8 +35,11 @@ const divideChildren = (children: React.ReactNode, depth: number) => {
   return [treeNodeChildren, normalChildren];
 };
 
-interface Props extends HTMLAttributes<HTMLDivElement> {
-  children?: ReactNode;
+type RenderChildren = (isOpened: boolean) => ReactNode;
+type ChildrenType = RenderChildren | ReactNode;
+
+interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+  children: ChildrenType;
   depth?: number;
 }
 
@@ -44,7 +47,9 @@ const HierarchyTreeFolder: React.FC<Props> = (props: Props) => {
   const { children, depth = 0, ...restProps } = props;
   const { defaultIsFold, animation } = useContext(HierarchyContext);
   const [isOpen, setIsOpen] = useState<boolean>(!defaultIsFold);
-  const [treeNodeChildren, normalChildren] = divideChildren(children, depth);
+  const childNode =
+    typeof children === "function" ? children(isOpen) : children;
+  const [treeNodeChildren, normalChildren] = divideChildren(childNode, depth);
   const childrenRef = useRef<HTMLDivElement>(null);
 
   const handleFolderClick = (

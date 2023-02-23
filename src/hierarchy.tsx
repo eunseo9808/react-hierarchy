@@ -51,6 +51,9 @@ const Hierarchy = (props: Props) => {
 
     items.forEach((item) => {
       if ("items" in item && item.items !== undefined) {
+        const folderChildren = recursiveCreateTree(
+          item.items as HierarchyItems[]
+        );
         newChildren.push(
           <HierarchyTree.Folder
             key={item.id}
@@ -64,7 +67,7 @@ const Hierarchy = (props: Props) => {
                 folderTemplate
                   ? folderTemplate({ content: item.content, isOpened })
                   : item.content,
-                recursiveCreateTree(item.items as HierarchyItems[]),
+                folderChildren,
               ];
             }}
           </HierarchyTree.Folder>

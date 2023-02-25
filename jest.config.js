@@ -4,7 +4,7 @@ module.exports = {
     "@testing-library/jest-dom/extend-expect",
     "jest-plugin-context/setup",
   ],
-  testPathIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/dist/"],
+  testPathIgnorePatterns: ["./node_modules/", "./dist/"],
   moduleNameMapper: {
     "^.+\\.(css|less|scss)$": "identity-obj-proxy",
   },
